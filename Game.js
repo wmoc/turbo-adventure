@@ -1,10 +1,10 @@
-export default class Game{
-    constructor(){
+export default class Game {
+    constructor() {
         this.scenes = [];
         this.animationFrameNumber = null;
     }
 
-    scene(){
+    scene() {
         return this.scenes.last();
     }
 
@@ -20,12 +20,14 @@ export default class Game{
         this.animationFrameNumber = window.requestAnimationFrame(this.render.bind(this));
     }
 
-    render(){
-        this.scene().render();
-
+    render() {
+        this.scene().render(this.camera);
 
 
         this.animationFrameNumber = window.requestAnimationFrame(this.render.bind(this));
     }
 
+    setCamera(camera) {
+        this.camera = camera;
+    }
 }
