@@ -1,0 +1,10 @@
+{
+  "name": "turbo-adventure",
+  "version": "1.0.0",
+  "dependencies": {
+    "babel-core": "x",
+    "babel-loader": "x",
+    "babel-preset-es2015": "x",
+    "webpack": "x"
+  }
+}
