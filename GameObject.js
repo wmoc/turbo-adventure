@@ -1,5 +1,11 @@
+import {Vector} from "./Vector";
 export default class GameObject {
-    constructor() {
+    constructor(position) {
+        if(position != undefined){
+            this.position = position;
+        }else{
+            this.position = new Vector();
+        }
         this.children = [];
     }
 
