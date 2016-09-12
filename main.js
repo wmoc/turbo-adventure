@@ -3,6 +3,9 @@ import "./JSFix"
 import DeskScene from "./DeskScene";
 import {Camera} from "./Camera";
 import {game} from "./Game";
+import {Fork} from "./Fork";
+import {Body} from "./Body";
+import {Player} from "./Player";
 
 
 
@@ -13,10 +16,12 @@ import {game} from "./Game";
 
 
 var camera = new Camera(document.getElementById('game'));
-camera.body.x = 27;
-camera.body.y = 19.5;
-camera.body.angle = 0.1;
 var scene = new DeskScene();
+var player = new Player(new Body(0,0,0,3,15,0));
+
+
+scene.addChild(player);
+camera.follow(player.body);
 game.setCamera(camera);
 game.setScene(scene);
 game.init();

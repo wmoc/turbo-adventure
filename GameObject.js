@@ -30,4 +30,14 @@ export default class GameObject {
             child.render(camera);
         });
     }
+
+    handleUpdate() {
+        if (this.update != undefined) {
+            this.update();
+        }
+
+        this.children.forEach(function (child) {
+            child.handleUpdate();
+        });
+    }
 }

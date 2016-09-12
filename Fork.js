@@ -9,6 +9,24 @@ export class Fork extends GameObject {
 
     draw(camera) {
         camera.drawImageAndBody(this.image, this.body);
-        this.body.angle += 4.1;
     }
+
+    // TODO: temporary
+    turnLeft(){
+        this.angularMomentum += 0.02;
+        console.log(this.body.angle)
+    }
+
+    // TODO: temporary
+    turnRight(){
+        this.angularMomentum += -0.02;
+    }
+
+    // TODO: true physics
+    update(){
+        this.body.angle += this.angularMomentum;
+        this.body.x += this.velocity * Math.sin(this.body.angle);
+        this.body.y += this.velocity * -Math.cos(this.body.angle);
+    }
+
 }

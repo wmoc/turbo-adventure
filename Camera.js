@@ -6,7 +6,7 @@ import {eventManager} from "./EventManager";
  * TODO: camera angle
  */
 
-const VH = 24;
+const VH = 100;
 export class Camera extends GameObject {
     constructor(canvas) {
         super();
@@ -37,6 +37,7 @@ export class Camera extends GameObject {
         this.RtoV = rH / VH;
         this.vH = VH;
         this.vW = this.vH * this.WtoH;
+        this.squareOfHalfOfDiagonal = (this.vH / 2) * (this.vH / 2) + (this.vW  /2) * (this.vW / 2);
 
         this.body.width = this.vW;
         this.body.height = this.vH;
@@ -47,9 +48,11 @@ export class Camera extends GameObject {
     }
 
     drawImageAndBody(image, body) {
+        if(!this.shouldIRender(body)){
+            return;
+        }
         //move to center of image, because rotation in js is strange
         this.context.save();
-        console.log(body, this, body.rX(this), body.rY(this));
         this.context.translate(body.rX(this), body.rY(this));
         this.context.rotate(body.angle + this.body.angle);
         this.context.drawImage(image,
@@ -61,4 +64,24 @@ export class Camera extends GameObject {
         this.context.restore();
     }
 
+    shouldIRender(body){
+        return this.squareOfHalfOfDiagonal + body.width * body.width + body.height * body.height
+            > (this.body.x - body.x) * (this.body.x - body.x) +  (this.body.y - body.y) * (this.body.y - body.y);
+    }
+
+    follow(body){
+        this.followedBody = body;
+    }
+
+    unfollow(){
+        this.followedBody = undefined;
+    }
+
+    update(){
+        if(this.followedBody != undefined){
+            this.body.x = this.followedBody.x;
+            this.body.y = this.followedBody.y;
+            // this.body.angle = this.followedBody.angle;
+        }
+    }
 }

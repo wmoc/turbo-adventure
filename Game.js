@@ -21,13 +21,14 @@ class Game {
     }
 
     run() {
+        setInterval(this.handleUpdate.bind(this), 100 / 120);
         window.requestAnimationFrame(this.render.bind(this));
     }
 
     render() {
-        if (this.state == this.states.PAUSE) {
-            return;
-        }
+        // if (this.state == this.states.PAUSE) {
+        //     return;
+        // }
 
         this.camera.clear();
         this.scene().render(this.camera);
@@ -36,13 +37,21 @@ class Game {
         window.requestAnimationFrame(this.render.bind(this));
     }
 
+    handleUpdate(){
+        /**
+         * TODO fixed ticks
+         */
+        this.scene().handleUpdate();
+        this.camera.update();
+    }
+
     setCamera(camera) {
         this.camera = camera;
     }
 
-    pause() {
-        this.state = this.states.PAUSE;
-    }
+    // pause() {
+    //     this.state = this.states.PAUSE;
+    // }
 }
 
 export let game = new Game();
