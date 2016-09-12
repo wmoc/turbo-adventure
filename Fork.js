@@ -1,13 +1,14 @@
 import GameObject from "./GameObject";
+import {imageManager} from "./ImageManager";
+import {game} from "./Game";
 export class Fork extends GameObject {
+    constructor(body) {
+        super(body);
+        this.image = imageManager.get(imageManager.images.FORK);
+    }
+
     draw(camera) {
-        camera.context.beginPath();
-        camera.context.arc(this.position.x * camera.RtoV, this.position.y * camera.RtoV, 10 * camera.RtoV, 0, Math.PI, false);
-        camera.context.closePath();
-        camera.context.fillStyle = 'red';
-        camera.context.fill();
-        camera.context.strokeStyle = "#123456";
-        camera.context.stroke();
-        console.log(this.position)
+        camera.drawImageAndBody(this.image, this.body);
+        this.body.angle += 4.1;
     }
 }

@@ -1,11 +1,13 @@
-import {Vector} from "./Vector";
+import {Body} from "./Body";
 export default class GameObject {
-    constructor(position) {
-        if(position != undefined){
-            this.position = position;
+
+    constructor(body) {
+        if(body != undefined){
+            this.body = body;
         }else{
-            this.position = new Vector();
+            this.body = new Body();
         }
+
         this.children = [];
     }
 

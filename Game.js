@@ -1,7 +1,11 @@
-export default class Game {
+class Game {
     constructor() {
         this.scenes = [];
-        this.animationFrameNumber = null;
+        this.states = {
+            PAUSE: 0,
+            ACTIVE: 1
+        };
+        this.state = this.states.ACTIVE;
     }
 
     scene() {
@@ -17,17 +21,28 @@ export default class Game {
     }
 
     run() {
-        this.animationFrameNumber = window.requestAnimationFrame(this.render.bind(this));
+        window.requestAnimationFrame(this.render.bind(this));
     }
 
     render() {
+        if (this.state == this.states.PAUSE) {
+            return;
+        }
+
+        this.camera.clear();
         this.scene().render(this.camera);
 
 
-        this.animationFrameNumber = window.requestAnimationFrame(this.render.bind(this));
+        window.requestAnimationFrame(this.render.bind(this));
     }
 
     setCamera(camera) {
         this.camera = camera;
     }
+
+    pause() {
+        this.state = this.states.PAUSE;
+    }
 }
+
+export let game = new Game();

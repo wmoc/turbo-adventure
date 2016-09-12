@@ -1,7 +1,12 @@
 import GameObject from "./GameObject";
 import {eventManager} from "./EventManager";
 
-const VH = 100;
+/**
+ * TODO: take into account Z axis
+ * TODO: camera angle
+ */
+
+const VH = 24;
 export class Camera extends GameObject {
     constructor(canvas) {
         super();
@@ -32,5 +37,28 @@ export class Camera extends GameObject {
         this.RtoV = rH / VH;
         this.vH = VH;
         this.vW = this.vH * this.WtoH;
+
+        this.body.width = this.vW;
+        this.body.height = this.vH;
     }
+
+    clear() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    drawImageAndBody(image, body) {
+        //move to center of image, because rotation in js is strange
+        this.context.save();
+        console.log(body, this, body.rX(this), body.rY(this));
+        this.context.translate(body.rX(this), body.rY(this));
+        this.context.rotate(body.angle + this.body.angle);
+        this.context.drawImage(image,
+            -body.rWidth(this) / 2,
+            -body.rHeight(this) / 2,
+            body.rWidth(this),
+            body.rHeight(this));
+
+        this.context.restore();
+    }
+
 }

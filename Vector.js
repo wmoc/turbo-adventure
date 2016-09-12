@@ -1,7 +1,8 @@
 export class Vector{
-    constructor(x, y){
+    constructor(x, y, z){
         this.x = 0;
         this.y = 0;
+        this.z = 0;
 
         if(x != undefined){
             this.x = x;
@@ -9,6 +10,8 @@ export class Vector{
         if(y != undefined){
             this.y = y;
         }
-        console.log(this)
+        if(z != undefined){
+            this.z = z;
+        }
     }
 }
